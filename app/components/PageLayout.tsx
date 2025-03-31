@@ -14,6 +14,7 @@ import {
   SearchFormPredictive,
 } from '~/components/SearchFormPredictive';
 import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
+import ContainerFluid from '~/components/ContainerFluid';
 
 interface PageLayoutProps {
   cart: Promise<CartApiQueryFragment | null>;
@@ -38,14 +39,14 @@ export function PageLayout({
       <SearchAside />
       <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
       {header && (
-        <Header
-          header={header}
-          cart={cart}
-          isLoggedIn={isLoggedIn}
-          publicStoreDomain={publicStoreDomain}
-        />
+          <Header
+            header={header}
+            cart={cart}
+            isLoggedIn={isLoggedIn}
+            publicStoreDomain={publicStoreDomain}
+          />
       )}
-      <main>{children}</main>
+      <ContainerFluid>{children}</ContainerFluid>
       <Footer
         footer={footer}
         header={header}

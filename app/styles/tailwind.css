@@ -1,6 +1,15 @@
+@import 'tailwindcss';
+@import '@bitgmbh/ebiz-patterns-core/lib/fundamentals/variables.css';
+
+@config "../../tailwind.config.ts";
+
 /**
  * Configure Tailwind v4 in this file using CSS variables and directives:
  * https://tailwindcss.com/docs/v4-beta#css-first-configuration
  */
 
-@import 'tailwindcss';
+.w-content {
+    width: clamp(var(--content-min-width),100dvw,var(--content-max-width));
+    padding-inline: var(--grid-padding);
+    margin-inline: auto;
+}

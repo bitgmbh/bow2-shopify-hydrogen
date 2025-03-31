@@ -7,6 +7,7 @@ import {
 } from '@shopify/hydrogen';
 import type {HeaderQuery, CartApiQueryFragment} from 'storefrontapi.generated';
 import {useAside} from '~/components/Aside';
+import ContainerFluid from "~/components/ContainerFluid";
 
 interface HeaderProps {
   header: HeaderQuery;
@@ -25,17 +26,38 @@ export function Header({
 }: HeaderProps) {
   const {shop, menu} = header;
   return (
-    <header className="header">
-      <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <strong>{shop.name}</strong>
-      </NavLink>
+    <header className="grid grid-cols-1 [grid-template-areas:'search-header''nav-header'] gap-c items-center py-c">
+      <ContainerFluid className="flex items-center justify-between gap-c [grid-area:search-header] !mb-0">
+        <NavLink
+          prefetch="intent"
+          to="/"
+          style={activeLinkStyle}
+          end
+          className="flex items-center gap-b "
+        >
+          <svg
+            className="h-[22px] w-[74px] text-primary-nature-green-600 md:h-[32px] md:w-[102px] size-c"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <use xlinkHref="/assets/icons.symbols.svg#icon-ebusiness-baywa-logo-m" />
+          </svg>
+          <div className="text-primary-nature-green-600 font-normal">
+            Für die Landwirtschaft
+          </div>
+        </NavLink>
+        <input
+          className="rounded-full border border-secondary-stone-grey-200 w-[200px] h-f px-c"
+          type="text"
+        />
+        <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
+      </ContainerFluid>
       <HeaderMenu
         menu={menu}
         viewport="desktop"
         primaryDomainUrl={header.shop.primaryDomain.url}
         publicStoreDomain={publicStoreDomain}
       />
-      <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
     </header>
   );
 }
@@ -55,7 +77,8 @@ export function HeaderMenu({
   const {close} = useAside();
 
   return (
-    <nav className={className} role="navigation">
+    <nav className=' h-f bg-secondary-stone-grey-100' role="navigation">
+      <ContainerFluid className='flex items-center [grid-area:nav-header] !mb-0 h-full'>
       {viewport === 'mobile' && (
         <NavLink
           end
@@ -67,6 +90,8 @@ export function HeaderMenu({
           Home
         </NavLink>
       )}
+
+        <div className='flex items-center gap-b'>
       {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
         if (!item.url) return null;
 
@@ -91,6 +116,8 @@ export function HeaderMenu({
           </NavLink>
         );
       })}
+        </div>
+      </ContainerFluid>
     </nav>
   );
 }
@@ -100,12 +127,12 @@ function HeaderCtas({
   cart,
 }: Pick<HeaderProps, 'isLoggedIn' | 'cart'>) {
   return (
-    <nav className="header-ctas" role="navigation">
+    <nav className="header-ctas [grid-area:search-header]" role="navigation">
       <HeaderMenuMobileToggle />
       <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
         <Suspense fallback="Sign in">
           <Await resolve={isLoggedIn} errorElement="Sign in">
-            {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Sign in')}
+            {(isLoggedIn) => (isLoggedIn ? 'Mein Konto' : 'Einloggen')}
           </Await>
         </Suspense>
       </NavLink>
@@ -131,7 +158,7 @@ function SearchToggle() {
   const {open} = useAside();
   return (
     <button className="reset" onClick={() => open('search')}>
-      Search
+      Suchen
     </button>
   );
 }

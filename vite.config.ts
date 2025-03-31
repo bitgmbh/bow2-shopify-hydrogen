@@ -32,6 +32,7 @@ export default defineConfig({
     // Allow a strict Content-Security-Policy
     // withtout inlining assets as base64:
     assetsInlineLimit: 0,
+    assetsDir: 'assets/hydrogen'
   },
   ssr: {
     optimizeDeps: {
@@ -45,7 +46,12 @@ export default defineConfig({
        * Include 'example-dep' in the array below.
        * @see https://vitejs.dev/config/dep-optimization-options
        */
-      include: [],
+      include: [
+        'redis',
+        'tailwindcss/defaultTheme.js',
+        'tailwindcss/plugin.js',
+        'node_modules/@bitgmbh/ebiz-patterns-core/node_modules/tailwindcss/plugin.js',
+      ],
     },
   },
 });
