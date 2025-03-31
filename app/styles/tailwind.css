@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import '@bitgmbh/ebiz-patterns-core/lib/fundamentals/variables.css';
+@import '@bitgmbh/ebiz-react-components/tailwind';
 
 @config "../../tailwind.config.ts";
 
@@ -12,4 +13,8 @@
     width: clamp(var(--content-min-width),100dvw,var(--content-max-width));
     padding-inline: var(--grid-padding);
     margin-inline: auto;
+}
+
+h1 {
+    @apply text-24 leading-32 md:text-40 md:leading-48 md:font-normal lg:font-semibold mb-c
 }

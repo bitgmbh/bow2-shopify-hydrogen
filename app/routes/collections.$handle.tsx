@@ -79,7 +79,7 @@ export default function Collection() {
       <p className="collection-description">{collection.description}</p>
       <PaginatedResourceSection
         connection={collection.products}
-        resourcesClassName="products-grid"
+        resourcesClassName="grid grid-cols-4 gap-c"
       >
         {({node: product, index}) => (
           <ProductItem

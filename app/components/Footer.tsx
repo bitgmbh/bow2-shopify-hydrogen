@@ -1,6 +1,7 @@
 import {Suspense} from 'react';
 import {Await, NavLink} from '@remix-run/react';
 import type {FooterQuery, HeaderQuery} from 'storefrontapi.generated';
+import ContainerFluid from "~/components/ContainerFluid";
 
 interface FooterProps {
   footer: Promise<FooterQuery | null>;
@@ -42,7 +43,10 @@ function FooterMenu({
   publicStoreDomain: string;
 }) {
   return (
-    <nav className="footer-menu" role="navigation">
+    <nav className="bg-black text-white text-14 font-normal" role="navigation">
+      <ContainerFluid className='flex justify-between items-center h-f !mb-0'>
+        © BayWa AG 2025
+        <div>
       {(menu || FALLBACK_FOOTER_MENU).items.map((item) => {
         if (!item.url) return null;
         // if the url is internal, we strip the domain
@@ -64,11 +68,14 @@ function FooterMenu({
             prefetch="intent"
             style={activeLinkStyle}
             to={url}
+            className='no-underline decoration-white hover:text-white [&:not(:last-child)]:after:mx-[10px] [&:not(:last-child)]:after:content-["|"]'
           >
             {item.title}
           </NavLink>
         );
       })}
+        </div>
+      </ContainerFluid>
     </nav>
   );
 }
@@ -123,7 +130,6 @@ function activeLinkStyle({
   isPending: boolean;
 }) {
   return {
-    fontWeight: isActive ? 'bold' : undefined,
     color: isPending ? 'grey' : 'white',
   };
 }

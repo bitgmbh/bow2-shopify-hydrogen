@@ -8,6 +8,7 @@ import {
 import type {HeaderQuery, CartApiQueryFragment} from 'storefrontapi.generated';
 import {useAside} from '~/components/Aside';
 import ContainerFluid from "~/components/ContainerFluid";
+import {Input} from "@bitgmbh/ebiz-react-components";
 
 interface HeaderProps {
   header: HeaderQuery;
@@ -26,28 +27,28 @@ export function Header({
 }: HeaderProps) {
   const {shop, menu} = header;
   return (
-    <header className="grid grid-cols-1 [grid-template-areas:'search-header''nav-header'] gap-c items-center py-c">
-      <ContainerFluid className="flex items-center justify-between gap-c [grid-area:search-header] !mb-0">
+    <header className="flex flex-col  w-full mb-d">
+      <ContainerFluid className="flex gap-c !mb-0 py-c">
         <NavLink
           prefetch="intent"
           to="/"
           style={activeLinkStyle}
           end
-          className="flex items-center gap-b "
+          className="flex items-center gap-b [grid-area:home] no-underline"
         >
           <svg
-            className="h-[22px] w-[74px] text-primary-nature-green-600 md:h-[32px] md:w-[102px] size-c"
+            className="h-[22px] w-[74px] text-primary-nature-green-600 md:h-[32px] md:w-[102px] size-c shrink-0 grow-0 basis-[74px]"
             fill="currentColor"
             xmlns="http://www.w3.org/2000/svg"
           >
             <use xlinkHref="/assets/icons.symbols.svg#icon-ebusiness-baywa-logo-m" />
           </svg>
-          <div className="text-primary-nature-green-600 font-normal">
+          <div className="text-[20px] text-primary-nature-green-600 font-normal text-nowrap flex-1">
             Für die Landwirtschaft
           </div>
         </NavLink>
         <input
-          className="rounded-full border border-secondary-stone-grey-200 w-[200px] h-f px-c"
+          className="focus relative z-20 block h-f flex-1 truncate rounded-full border border-secondary-stone-grey-200 bg-secondary-stone-grey-50 pr-f search-cancel:appearance-none focus:outline focus:outline-4 focus:outline-primary-nature-green-300"
           type="text"
         />
         <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
@@ -127,7 +128,7 @@ function HeaderCtas({
   cart,
 }: Pick<HeaderProps, 'isLoggedIn' | 'cart'>) {
   return (
-    <nav className="header-ctas [grid-area:search-header]" role="navigation">
+    <nav className="flex gap-c items-center ml-auto" role="navigation">
       <HeaderMenuMobileToggle />
       <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
         <Suspense fallback="Sign in">
