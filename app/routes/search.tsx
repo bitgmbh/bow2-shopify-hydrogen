@@ -40,29 +40,14 @@ export default function SearchPage() {
 
   return (
     <div className="search">
-      <h1>Search</h1>
-      <SearchForm>
-        {({inputRef}) => (
-          <>
-            <input
-              defaultValue={term}
-              name="q"
-              placeholder="Search…"
-              ref={inputRef}
-              type="search"
-            />
-            &nbsp;
-            <button type="submit">Search</button>
-          </>
-        )}
-      </SearchForm>
+      <h1>{`Ergebnisse für '${term}'`}</h1>
       {error && <p style={{color: 'red'}}>{error}</p>}
       {!term || !result?.total ? (
         <SearchResults.Empty />
       ) : (
         <SearchResults result={result} term={term}>
           {({articles, pages, products, term}) => (
-            <div>
+            <div >
               <SearchResults.Products products={products} term={term} />
               <SearchResults.Pages pages={pages} term={term} />
               <SearchResults.Articles articles={articles} term={term} />

@@ -1,5 +1,5 @@
 import {Suspense} from 'react';
-import {Await, NavLink, useAsyncValue} from '@remix-run/react';
+import {Await, NavLink, useAsyncValue, Form} from '@remix-run/react';
 import {
   type CartViewPayload,
   useAnalytics,
@@ -8,7 +8,7 @@ import {
 import type {HeaderQuery, CartApiQueryFragment} from 'storefrontapi.generated';
 import {useAside} from '~/components/Aside';
 import ContainerFluid from "~/components/ContainerFluid";
-import {Input} from "@bitgmbh/ebiz-react-components";
+import {BaywaIcon, Input} from "@bitgmbh/ebiz-react-components";
 
 interface HeaderProps {
   header: HeaderQuery;
@@ -34,23 +34,35 @@ export function Header({
           to="/"
           style={activeLinkStyle}
           end
-          className="flex items-center gap-b [grid-area:home] no-underline"
+          className="grid grid-cols-[auto_auto] items-center gap-c no-underline whitespace-nowrap"
         >
           <svg
-            className="h-[22px] w-[74px] text-primary-nature-green-600 md:h-[32px] md:w-[102px] size-c shrink-0 grow-0 basis-[74px]"
+            className="h-[22px] w-[74px] text-primary-nature-green-600 md:h-[32px] md:w-[102px]"
             fill="currentColor"
             xmlns="http://www.w3.org/2000/svg"
           >
             <use xlinkHref="/assets/icons.symbols.svg#icon-ebusiness-baywa-logo-m" />
           </svg>
-          <div className="text-[20px] text-primary-nature-green-600 font-normal text-nowrap flex-1">
+          <div className="text-[20px] text-primary-nature-green-600 font-normal text-nowrap basis-auto">
             Für die Landwirtschaft
           </div>
         </NavLink>
-        <input
-          className="focus relative z-20 block h-f flex-1 truncate rounded-full border border-secondary-stone-grey-200 bg-secondary-stone-grey-50 pr-f search-cancel:appearance-none focus:outline focus:outline-4 focus:outline-primary-nature-green-300"
+        <Form action='/search' method='get' className='w-full'>
+        <div className='relative'>
+          <input
+              name='q'
+          className="focus relative z-20 block pl-c h-f flex-1 truncate rounded-full border border-secondary-stone-grey-200 bg-secondary-stone-grey-50 pr-f search-cancel:appearance-none focus:outline focus:outline-4 focus:outline-primary-nature-green-300 w-full"
           type="text"
         />
+          <button type='submit' className='pointer-cursor px-b rounded-f h-e transition group focus:bg-primary-green-600 focus:fill-white active:bg-primary-nature-green-900 active:border-primary-nature-green-900 bg-primary-nature-green-600 hover:bg-accent-spring-green-400 hover:text-black transition text-white  active:text-white size-e flex items-center justify-center absolute right-aa top-1/2 z-20 flex size-e -translate-y-1/2 items-center justify-center rounded-full bg-primary-nature-green-600 text-white'>
+            <BaywaIcon icon='icon-marketing-suche'/>
+          </button>
+        </div>
+          <label>
+            Predictive Search
+            <input type='checkbox' name='predictive'/>
+          </label>
+        </Form>
         <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
       </ContainerFluid>
       <HeaderMenu

@@ -103,7 +103,7 @@ function SearchResultsProducts({
 
   return (
     <div className="search-result">
-      <h2>Products</h2>
+      <h2>Produkte</h2>
       <Pagination connection={products}>
         {({nodes, isLoading, NextLink, PreviousLink}) => {
           const ItemsMarkup = nodes.map((product) => {
@@ -117,10 +117,10 @@ function SearchResultsProducts({
             const image = product?.selectedOrFirstAvailableVariant?.image;
 
             return (
-              <div className="search-results-item" key={product.id}>
-                <Link prefetch="intent" to={productUrl}>
+              <div className="py-c" key={product.id}>
+                <Link className='grid grid-cols-[fit-content(120px)_auto] gap-c' prefetch="intent" to={productUrl}>
                   {image && (
-                    <Image data={image} alt={product.title} width={50} />
+                    <Image className='aspect-4/3' data={image} alt={product.title} width={120} />
                   )}
                   <div>
                     <p>{product.title}</p>
@@ -138,7 +138,7 @@ function SearchResultsProducts({
                   {isLoading ? 'Loading...' : <span>↑ Load previous</span>}
                 </PreviousLink>
               </div>
-              <div>
+              <div className='grid grid-cols-1 grid-rows-[1fr] gab-c divide-y divide-secondary-stone-grey-300'>
                 {ItemsMarkup}
                 <br />
               </div>
