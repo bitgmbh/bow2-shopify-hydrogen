@@ -8,7 +8,7 @@ import {
 import type {HeaderQuery, CartApiQueryFragment} from 'storefrontapi.generated';
 import {useAside} from '~/components/Aside';
 import ContainerFluid from "~/components/ContainerFluid";
-import {BaywaIcon, Input} from "@bitgmbh/ebiz-react-components";
+import {BaywaIcon, Button, Input} from "@bitgmbh/ebiz-react-components";
 
 interface HeaderProps {
   header: HeaderQuery;
@@ -51,17 +51,20 @@ export function Header({
         <div className='relative'>
           <input
               name='q'
+              autoComplete='off'
           className="focus relative z-20 block pl-c h-f flex-1 truncate rounded-full border border-secondary-stone-grey-200 bg-secondary-stone-grey-50 pr-f search-cancel:appearance-none focus:outline focus:outline-4 focus:outline-primary-nature-green-300 w-full"
           type="text"
         />
-          <button type='submit' className='pointer-cursor px-b rounded-f h-e transition group focus:bg-primary-green-600 focus:fill-white active:bg-primary-nature-green-900 active:border-primary-nature-green-900 bg-primary-nature-green-600 hover:bg-accent-spring-green-400 hover:text-black transition text-white  active:text-white size-e flex items-center justify-center absolute right-aa top-1/2 z-20 flex size-e -translate-y-1/2 items-center justify-center rounded-full bg-primary-nature-green-600 text-white'>
-            <BaywaIcon icon='icon-marketing-suche'/>
-          </button>
+          <Button
+              ariaLabel="Nach Suchbegriff suchen"
+              className="absolute right-aa top-1/2 z-20 flex size-e -translate-y-1/2 items-center justify-center rounded-full bg-primary-nature-green-600 text-white"
+              icon="icon-marketing-suche"
+              tabIndex={-1}
+              title="Suchen"
+              type="submit"
+              variant="primary"
+          />
         </div>
-          <label>
-            Predictive Search
-            <input type='checkbox' name='predictive'/>
-          </label>
         </Form>
         <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
       </ContainerFluid>

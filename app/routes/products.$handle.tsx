@@ -1,16 +1,14 @@
 import {type LoaderFunctionArgs} from '@shopify/remix-oxygen';
-import {useLoaderData, type MetaFunction} from '@remix-run/react';
+import {type MetaFunction, useLoaderData} from '@remix-run/react';
 import {
-  getSelectedProductOptions,
-  Analytics,
-  useOptimisticVariant,
-  getProductOptions,
   getAdjacentAndFirstAvailableVariants,
+  getProductOptions,
+  getSelectedProductOptions,
+  useOptimisticVariant,
   useSelectedOptionInUrlParam,
 } from '@shopify/hydrogen';
-import {ProductPrice} from '~/components/ProductPrice';
-import {ProductImage} from '~/components/ProductImage';
-import {ProductForm} from '~/components/ProductForm';
+import ProductVariantPage from '~/components/product-details/ProductVariantPage';
+import {ProductDetailPageContext} from '~/components/product-details/product-detail-context';
 
 export const meta: MetaFunction<typeof loader> = ({data}) => {
   return [
@@ -95,48 +93,55 @@ export default function Product() {
     selectedOrFirstAvailableVariant: selectedVariant,
   });
 
-  const {title, descriptionHtml} = product;
-
   return (
-    <div className="product">
-      <ProductImage image={selectedVariant?.image} />
-      <div className="product-main">
-        <h1>{title}</h1>
-        <ProductPrice
-          price={selectedVariant?.price}
-          compareAtPrice={selectedVariant?.compareAtPrice}
-        />
-        <br />
-        <ProductForm
-          productOptions={productOptions}
-          selectedVariant={selectedVariant}
-        />
-        <br />
-        <br />
-        <p>
-          <strong>Description</strong>
-        </p>
-        <br />
-        <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
-        <br />
-      </div>
-      <Analytics.ProductView
-        data={{
-          products: [
-            {
-              id: product.id,
-              title: product.title,
-              price: selectedVariant?.price.amount || '0',
-              vendor: product.vendor,
-              variantId: selectedVariant?.id || '',
-              variantTitle: selectedVariant?.title || '',
-              quantity: 1,
-            },
-          ],
-        }}
-      />
-    </div>
+    <ProductDetailPageContext.Provider
+      value={{
+        product,
+        variant: product.selectedOrFirstAvailableVariant,
+        variantOptions: productOptions,
+      }}
+    >
+      <ProductVariantPage />
+    </ProductDetailPageContext.Provider>
   );
+  // <div className="product">
+  //   <ProductImage image={selectedVariant?.image} />
+  //   <div className="product-main">
+  //     <h1>{title}</h1>
+  //     <ProductPrice
+  //       price={selectedVariant?.price}
+  //       compareAtPrice={selectedVariant?.compareAtPrice}
+  //     />
+  //     <br />
+  //     <ProductForm
+  //       productOptions={productOptions}
+  //       selectedVariant={selectedVariant}
+  //     />
+  //     <br />
+  //     <br />
+  //     <p>
+  //       <strong>Description</strong>
+  //     </p>
+  //     <br />
+  //     <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
+  //     <br />
+  //   </div>
+  //   <Analytics.ProductView
+  //     data={{
+  //       products: [
+  //         {
+  //           id: product.id,
+  //           title: product.title,
+  //           price: selectedVariant?.price.amount || '0',
+  //           vendor: product.vendor,
+  //           variantId: selectedVariant?.id || '',
+  //           variantTitle: selectedVariant?.title || '',
+  //           quantity: 1,
+  //         },
+  //       ],
+  //     }}
+  //   />
+  // </div>
 }
 
 const PRODUCT_VARIANT_FRAGMENT = `#graphql
@@ -186,6 +191,20 @@ const PRODUCT_FRAGMENT = `#graphql
     description
     encodedVariantExistence
     encodedVariantAvailability
+    media(first: 10) {
+      nodes {
+        mediaContentType
+        ... on MediaImage {
+          id
+          image {
+            url
+            altText
+            width
+            height
+          }
+        }
+      }
+    }    
     options {
       name
       optionValues {

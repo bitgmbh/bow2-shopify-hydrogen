@@ -10,7 +10,7 @@
  */
 
 .w-content {
-    width: clamp(var(--content-min-width),100dvw,var(--content-max-width));
+    width: clamp(var(--content-min-width), 100dvw, var(--content-max-width));
     padding-inline: var(--grid-padding);
     margin-inline: auto;
 }

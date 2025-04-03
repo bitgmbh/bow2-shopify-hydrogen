@@ -18,6 +18,7 @@ import fontFaces from './styles/font-faces.css?url'
 import {PageLayout} from '~/components/PageLayout';
 import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
 import tailwindStyles from './styles/tailwind.css?url'
+import {PortalContextProvider} from "@bitgmbh/ebiz-react-components";
 
 export type RootLoader = typeof loader;
 
@@ -165,7 +166,9 @@ export function Layout({children}: {children?: React.ReactNode}) {
             shop={data.shop}
             consent={data.consent}
           >
+            <PortalContextProvider iconPath='/assets/icons.symbols.svg' pageContext={{}}>
             <PageLayout {...data}>{children}</PageLayout>
+            </PortalContextProvider>
           </Analytics.Provider>
         ) : (
           children
