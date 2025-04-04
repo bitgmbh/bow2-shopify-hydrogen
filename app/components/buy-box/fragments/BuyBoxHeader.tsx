@@ -7,7 +7,7 @@ interface BuyBoxHeaderProps {
 
 export const BuyBoxHeader: React.FC<BuyBoxHeaderProps> = ({productVariant}) => (
   <div className="grid gap-aa">
-    <h1 className="text-18 leading-24 md:text-22 md:leading-32 font-semibold">
+    <h1 className="text-18 leading-24 md:text-22 md:leading-32 font-semibold !mb-aa">
       {productVariant?.title}
     </h1>
     <a

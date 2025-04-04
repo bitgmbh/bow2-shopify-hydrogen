@@ -6,6 +6,7 @@ import type {
 } from '@shopify/hydrogen/storefront-api-types';
 import {useAside} from './Aside';
 import type {ProductFragment} from 'storefrontapi.generated';
+import clsx from 'clsx';
 
 export function ProductForm({
   productOptions,
@@ -70,16 +71,11 @@ export function ProductForm({
                   return (
                     <button
                       type="button"
-                      className={`grid gap-b h-full items-center no-underline text-14 p-a border rounded-a border-secondary-stone-grey-200 hover:bg-secondary-stone-grey-200 bg-secondary-stone-grey-200 ${
-                        exists && !selected ? ' link' : ''
-                      }`}
+                      className={clsx(
+                        `grid gap-b h-full items-center no-underline text-14 p-a border rounded-a border-secondary-stone-grey-200 hover:bg-secondary-stone-grey-200 `,
+                        selected && 'bg-secondary-stone-grey-200',
+                      )}
                       key={option.name + name}
-                      style={{
-                        border: selected
-                          ? '1px solid black'
-                          : '1px solid transparent',
-                        opacity: available ? 1 : 0.3,
-                      }}
                       disabled={!exists}
                       onClick={() => {
                         if (!selected) {

@@ -7,7 +7,7 @@ import {FooterContentGroup} from '~/components/page/Footer/fragments/FooterConte
 
 interface FooterSeoTeaserProps extends FooterSocialMediaProps {}
 
-const FooterSeoTeaser: React.FC<FooterSeoTeaserProps> = ({links}) => {
+const FooterSeoTeaser: React.FC<FooterSeoTeaserProps> = () => {
   return (
     <FooterContentGroup
       containerClassName="sm:hidden md:block"

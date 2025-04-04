@@ -1,14 +1,17 @@
-import {Suspense} from 'react';
-import {Await, NavLink, useAsyncValue, Form} from '@remix-run/react';
+import React, {Suspense} from 'react';
+import {Await, Form, NavLink, useAsyncValue} from '@remix-run/react';
 import {
   type CartViewPayload,
   useAnalytics,
   useOptimisticCart,
 } from '@shopify/hydrogen';
-import type {HeaderQuery, CartApiQueryFragment} from 'storefrontapi.generated';
+import type {CartApiQueryFragment, HeaderQuery} from 'storefrontapi.generated';
 import {useAside} from '~/components/Aside';
-import ContainerFluid from "~/components/ContainerFluid";
-import {BaywaIcon, Button, Input} from "@bitgmbh/ebiz-react-components";
+import ContainerFluid from '~/components/ContainerFluid';
+import {Button} from '@bitgmbh/ebiz-react-components';
+import {MetaIconButtonLink} from '~/components/page/Header/MetaNav/MetaIconButtonLink/MetaIconButtonLink';
+import {MyAccountUrl} from '~/components/page/Header/MetaNav/MetaIconButtonLink/buttons';
+import {PortalSwitcher} from '~/components/page/Header/PortalSwitcher';
 
 interface HeaderProps {
   header: HeaderQuery;
@@ -28,6 +31,7 @@ export function Header({
   const {shop, menu} = header;
   return (
     <header className="flex flex-col  w-full mb-d">
+      <PortalSwitcher />
       <ContainerFluid className="flex gap-c !mb-0 py-c">
         <NavLink
           prefetch="intent"
@@ -47,15 +51,15 @@ export function Header({
             Für die Landwirtschaft
           </div>
         </NavLink>
-        <Form action='/search' method='get' className='w-full'>
-        <div className='relative'>
-          <input
-              name='q'
-              autoComplete='off'
-          className="focus relative z-20 block pl-c h-f flex-1 truncate rounded-full border border-secondary-stone-grey-200 bg-secondary-stone-grey-50 pr-f search-cancel:appearance-none focus:outline focus:outline-4 focus:outline-primary-nature-green-300 w-full"
-          type="text"
-        />
-          <Button
+        <Form action="/search" method="get" className="w-full">
+          <div className="relative">
+            <input
+              name="q"
+              autoComplete="off"
+              className="focus relative z-20 block pl-c h-f flex-1 truncate rounded-full border border-secondary-stone-grey-200 bg-secondary-stone-grey-50 pr-f search-cancel:appearance-none focus:outline focus:outline-4 focus:outline-primary-nature-green-300 w-full"
+              type="text"
+            />
+            <Button
               ariaLabel="Nach Suchbegriff suchen"
               className="absolute right-aa top-1/2 z-20 flex size-e -translate-y-1/2 items-center justify-center rounded-full bg-primary-nature-green-600 text-white"
               icon="icon-marketing-suche"
@@ -63,8 +67,8 @@ export function Header({
               title="Suchen"
               type="submit"
               variant="primary"
-          />
-        </div>
+            />
+          </div>
         </Form>
         <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
       </ContainerFluid>
@@ -93,45 +97,45 @@ export function HeaderMenu({
   const {close} = useAside();
 
   return (
-    <nav className=' h-f bg-secondary-stone-grey-100' role="navigation">
-      <ContainerFluid className='flex items-center [grid-area:nav-header] !mb-0 h-full'>
-      {viewport === 'mobile' && (
-        <NavLink
-          end
-          onClick={close}
-          prefetch="intent"
-          style={activeLinkStyle}
-          to="/"
-        >
-          Home
-        </NavLink>
-      )}
-
-        <div className='flex items-center gap-b'>
-      {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
-        if (!item.url) return null;
-
-        // if the url is internal, we strip the domain
-        const url =
-          item.url.includes('myshopify.com') ||
-          item.url.includes(publicStoreDomain) ||
-          item.url.includes(primaryDomainUrl)
-            ? new URL(item.url).pathname
-            : item.url;
-        return (
+    <nav className=" h-f bg-secondary-stone-grey-100" role="navigation">
+      <ContainerFluid className="flex items-center [grid-area:nav-header] !mb-0 h-full">
+        {viewport === 'mobile' && (
           <NavLink
-            className="header-menu-item"
             end
-            key={item.id}
             onClick={close}
             prefetch="intent"
             style={activeLinkStyle}
-            to={url}
+            to="/"
           >
-            {item.title}
+            Home
           </NavLink>
-        );
-      })}
+        )}
+
+        <div className="flex items-center gap-b">
+          {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
+            if (!item.url) return null;
+
+            // if the url is internal, we strip the domain
+            const url =
+              item.url.includes('myshopify.com') ||
+              item.url.includes(publicStoreDomain) ||
+              item.url.includes(primaryDomainUrl)
+                ? new URL(item.url).pathname
+                : item.url;
+            return (
+              <NavLink
+                className="header-menu-item"
+                end
+                key={item.id}
+                onClick={close}
+                prefetch="intent"
+                style={activeLinkStyle}
+                to={url}
+              >
+                {item.title}
+              </NavLink>
+            );
+          })}
         </div>
       </ContainerFluid>
     </nav>
@@ -143,17 +147,19 @@ function HeaderCtas({
   cart,
 }: Pick<HeaderProps, 'isLoggedIn' | 'cart'>) {
   return (
-    <nav className="flex gap-c items-center ml-auto" role="navigation">
-      <HeaderMenuMobileToggle />
-      <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
-        <Suspense fallback="Sign in">
-          <Await resolve={isLoggedIn} errorElement="Sign in">
-            {(isLoggedIn) => (isLoggedIn ? 'Mein Konto' : 'Einloggen')}
-          </Await>
-        </Suspense>
-      </NavLink>
-      <SearchToggle />
-      <CartToggle cart={cart} />
+    <nav className="flex gap-a items-center" role="navigation">
+      <MetaIconButtonLink.Locations
+        key="locations"
+        url={'https://www.baywa.de/de/i/standorte'}
+      />
+      <MetaIconButtonLink.MyAccount
+        key="my-account"
+        urls={{} as MyAccountUrl}
+        user={{userName: 'Maxi Mustermann'}}
+        isAuthenticated={true}
+      />
+      <MetaIconButtonLink.Wishlist key="wishlist" />
+      <MetaIconButtonLink.Minicart key="minicart" />
     </nav>
   );
 }
