@@ -18,3 +18,7 @@
 h1 {
     @apply text-24 leading-32 md:text-40 md:leading-48 md:font-normal lg:font-semibold mb-c
 }
+
+button {
+    @apply cursor-pointer
+}

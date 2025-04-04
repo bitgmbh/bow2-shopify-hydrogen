@@ -20,7 +20,14 @@ export const ProductMediaGallery: FC<ProductMediaGalleryProps> = ({
   const hasMultipleMedia = media.length > 1;
   return (
     <div
-      className={clsx('grid gap-b grid-cols-2 auto-rows-max', className)}
+      className={clsx(
+        'grid gap-b auto-cols-fr auto-rows-max',
+        {
+          'md:grid-cols-[56px_auto]': hasMultipleMedia,
+          'grid-cols-1': !hasMultipleMedia,
+        },
+        className,
+      )}
       data-component="ProductMediaGallery"
     >
       {hasMultipleMedia && <ProductMediaGalleryThumbnails media={media} />}

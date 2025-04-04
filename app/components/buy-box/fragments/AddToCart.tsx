@@ -1,5 +1,8 @@
 import {Button} from '@bitgmbh/ebiz-react-components';
 import {useRef} from 'react';
+import {CartForm} from '@shopify/hydrogen';
+import type {FetcherWithComponents} from '@remix-run/react';
+import {useProductDetailContext} from '~/components/product-details/product-detail-context';
 
 interface AddToCartProps {
   productId: string;
@@ -8,7 +11,7 @@ interface AddToCartProps {
 
 export default function AddToCart({productId, unit}: AddToCartProps) {
   const addToCartFormRef = useRef<HTMLFormElement>(null);
-
+  const {variant} = useProductDetailContext();
   const handleAddToCart = async () => {
     if (addToCartFormRef.current) {
       addToCartFormRef.current.submit();
@@ -16,28 +19,36 @@ export default function AddToCart({productId, unit}: AddToCartProps) {
   };
 
   const handleAddToWishlist = async () => {};
-
+  const lines = variant
+    ? [
+        {
+          merchandiseId: variant.id,
+          quantity: 1,
+          variant,
+        },
+      ]
+    : [];
   return (
-    <div className="flex gap-b self-end">
-      <form
-        ref={addToCartFormRef}
-        method="POST"
-        action="/cart/add"
-        className="flex-1"
+    <div className="flex gap-b self-end [&>form]:flex-1">
+      <CartForm
+        route="/cart"
+        inputs={{lines}}
+        action={CartForm.ACTIONS.LinesAdd}
       >
-        <input type="hidden" name="csrf" value={''} />
-        <input type="hidden" name="unit" value={unit} />
-        <input type="hidden" name="productId" value={productId} />
-        <input type="hidden" name="quantity" defaultValue={1} />
-        <Button
-          fullWidth
-          text="In den Warenkorb"
-          name="add_to_cart"
-          icon="icon-ebusiness-basket"
-          className="px-a md:px-b"
-          clickHandler={handleAddToCart}
-        />
-      </form>
+        {(fetcher: FetcherWithComponents<any>) => (
+          <>
+            <Button
+              fullWidth
+              text="In den Warenkorb"
+              name="add_to_cart"
+              icon="icon-ebusiness-basket"
+              className="px-a md:px-b"
+              disabled={fetcher.state !== 'idle'}
+              type="submit"
+            />
+          </>
+        )}
+      </CartForm>
       <Button
         className="shrink-0"
         variant="secondary"
