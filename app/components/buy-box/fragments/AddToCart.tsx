@@ -39,11 +39,13 @@ export default function AddToCart({productId, unit}: AddToCartProps) {
           <>
             <Button
               fullWidth
-              text="In den Warenkorb"
+              text={
+                variant.availableForSale ? 'In den Warenkorb' : 'Ausverkauft'
+              }
               name="add_to_cart"
               icon="icon-ebusiness-basket"
               className="px-a md:px-b"
-              disabled={fetcher.state !== 'idle'}
+              disabled={!variant.availableForSale || fetcher.state !== 'idle'}
               type="submit"
             />
           </>

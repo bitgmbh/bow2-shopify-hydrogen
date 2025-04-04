@@ -4,7 +4,6 @@ import type {
   Maybe,
   ProductOptionValueSwatch,
 } from '@shopify/hydrogen/storefront-api-types';
-import {AddToCartButton} from './AddToCartButton';
 import {useAside} from './Aside';
 import type {ProductFragment} from 'storefrontapi.generated';
 
@@ -25,8 +24,8 @@ export function ProductForm({
 
         return (
           <div className="product-options" key={option.name}>
-            <h5>{option.name}</h5>
-            <div className="product-options-grid">
+            <span className="text-16 font-semibold">Varianten</span>
+            <div className="grid grid-cols-1 auto-rows-fr gap-y-a">
               {option.optionValues.map((value) => {
                 const {
                   name,
@@ -46,7 +45,7 @@ export function ProductForm({
                   // as an anchor tag
                   return (
                     <Link
-                      className="product-options-item"
+                      className="grid grid-cols-[46px_8px_auto] gap-b h-full items-center no-underline text-14 p-a border rounded-a border-secondary-stone-grey-200 hover:bg-secondary-stone-grey-200 bg-secondary-stone-grey-200 foo"
                       key={option.name + name}
                       prefetch="intent"
                       preventScrollReset
@@ -71,7 +70,7 @@ export function ProductForm({
                   return (
                     <button
                       type="button"
-                      className={`product-options-item${
+                      className={`grid gap-b h-full items-center no-underline text-14 p-a border rounded-a border-secondary-stone-grey-200 hover:bg-secondary-stone-grey-200 bg-secondary-stone-grey-200 ${
                         exists && !selected ? ' link' : ''
                       }`}
                       key={option.name + name}
@@ -101,25 +100,6 @@ export function ProductForm({
           </div>
         );
       })}
-      <AddToCartButton
-        disabled={!selectedVariant || !selectedVariant.availableForSale}
-        onClick={() => {
-          open('cart');
-        }}
-        lines={
-          selectedVariant
-            ? [
-                {
-                  merchandiseId: selectedVariant.id,
-                  quantity: 1,
-                  selectedVariant,
-                },
-              ]
-            : []
-        }
-      >
-        {selectedVariant?.availableForSale ? 'In den Warenkorb' : 'Ausverkauft'}
-      </AddToCartButton>
     </div>
   );
 }

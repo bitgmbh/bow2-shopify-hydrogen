@@ -62,8 +62,6 @@ export const ProductImage = forwardRef<HTMLDivElement, ProductImageProps>(
       }
     };
 
-    console.log('IMG', image);
-
     return (
       <div
         key={image.url}

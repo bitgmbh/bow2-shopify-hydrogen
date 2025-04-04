@@ -164,6 +164,11 @@ const PRODUCT_VARIANT_FRAGMENT = `#graphql
       amount
       currencyCode
     }
+   descriptionHtml: metafield(namespace: "baywa", key:"description") {
+        key
+        value
+        type
+      }
     product {
       title
       handle

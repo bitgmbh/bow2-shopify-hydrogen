@@ -22,7 +22,9 @@ export default function ProductVariantPage() {
         <ProductMediaGallery className="col-span-7 [grid-area:gallery]" />
         <Accordion className="[grid-area:main]">
           <DetailsAccordionItem title="Produktdetails" initiallyOpen={true}>
-            <ProductDescription description={product?.descriptionHtml} />
+            <ProductDescription
+              description={variant?.['descriptionHtml']?.value}
+            />
           </DetailsAccordionItem>
           <DetailsAccordionItem title="Datenblätter"></DetailsAccordionItem>
           <DetailsAccordionItem title="Produktsicherheit"></DetailsAccordionItem>
