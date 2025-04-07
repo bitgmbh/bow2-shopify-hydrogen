@@ -112,29 +112,31 @@ export function HeaderMenu({
         )}
 
         <div className="flex items-center justify-between flex-1">
-          {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
-            if (!item.url) return null;
+          {(menu || FALLBACK_HEADER_MENU).items
+            .filter((item) => item.title !== 'Home')
+            .map((item) => {
+              if (!item.url) return null;
 
-            // if the url is internal, we strip the domain
-            const url =
-              item.url.includes('myshopify.com') ||
-              item.url.includes(publicStoreDomain) ||
-              item.url.includes(primaryDomainUrl)
-                ? new URL(item.url).pathname
-                : item.url;
-            return (
-              <NavLink
-                className="font-semibold"
-                end
-                key={item.id}
-                onClick={close}
-                prefetch="intent"
-                to={url}
-              >
-                {item.title}
-              </NavLink>
-            );
-          })}
+              // if the url is internal, we strip the domain
+              const url =
+                item.url.includes('myshopify.com') ||
+                item.url.includes(publicStoreDomain) ||
+                item.url.includes(primaryDomainUrl)
+                  ? new URL(item.url).pathname
+                  : item.url;
+              return (
+                <NavLink
+                  className="font-semibold"
+                  end
+                  key={item.id}
+                  onClick={close}
+                  prefetch="intent"
+                  to={url}
+                >
+                  {item.title}
+                </NavLink>
+              );
+            })}
         </div>
       </ContainerFluid>
     </nav>
