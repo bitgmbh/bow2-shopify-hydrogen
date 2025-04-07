@@ -1,4 +1,4 @@
-import { Breakpoint } from "@bitgmbh/ebiz-utils";
+import {Breakpoint} from '@bitgmbh/ebiz-utils';
 
 export const FooterMenus = [
   {
@@ -35,22 +35,22 @@ export const FooterMenus = [
     subMenuItems: [
       {
         text: 'Bonimal',
-        link: '/de/marken/bonimal/',
+        link: 'https://www.baywa.de/de/marken/bonimal/',
         linkTarget: '_blank',
       },
       {
         text: 'GALLU',
-        link: '/de/i/gallu/',
+        link: 'https://www.baywa.de/de/i/gallu/',
         linkTarget: '_self',
       },
       {
         text: 'GreenTrip',
-        link: '/de/marken/greentrip/',
+        link: 'https://www.baywa.de/de/marken/greentrip/',
         linkTarget: '_self',
       },
       {
         text: 'Pegus',
-        link: '/de/marken/pegus/',
+        link: 'https://www.baywa.de/de/marken/pegus/',
         linkTarget: '_blank',
       },
       {
@@ -60,7 +60,7 @@ export const FooterMenus = [
       },
       {
         text: 'Ringkanin',
-        link: '/de/marken/ringkanin/',
+        link: 'https://www.baywa.de/de/marken/ringkanin/',
         linkTarget: '_self',
       },
       {
@@ -82,17 +82,17 @@ export const FooterMenus = [
     subMenuItems: [
       {
         text: 'Pflanzenbau',
-        link: '/de/i/pflanzenbau/',
+        link: 'https://www.baywa.de/de/i/pflanzenbau/',
         linkTarget: '_self',
       },
       {
         text: 'Tierhaltung',
-        link: '/de/i/tierhaltung/',
+        link: 'https://www.baywa.de/de/i/tierhaltung/',
         linkTarget: '_self',
       },
       {
         text: 'Technik',
-        link: '/de/i/technik/',
+        link: 'https://www.baywa.de/de/i/technik/',
         linkTarget: '_self',
       },
       {
@@ -112,7 +112,7 @@ export const FooterMenus = [
       },
       {
         text: 'Termine & Veranstaltungen',
-        link: '/de/i/termine/#/',
+        link: 'https://www.baywa.de/de/i/termine/#/',
         linkTarget: '_self',
       },
       {
@@ -178,32 +178,32 @@ export const FooterMenus = [
     subMenuItems: [
       {
         text: 'Häufig gestellte Fragen (FAQ)',
-        link: '/de/i/footermenue/wir-helfen-ihnen/faq/',
+        link: 'https://www.baywa.de/de/i/footermenue/wir-helfen-ihnen/faq/',
         linkTarget: '_self',
       },
       {
         text: 'Kontakt',
-        link: '/de/public/contact/',
+        link: 'https://www.baywa.de/de/public/contact/',
         linkTarget: '_self',
       },
       {
         text: 'Newsletter abonnieren',
-        link: '/de/newsletter/subscribe/',
+        link: 'https://www.baywa.de/de/newsletter/subscribe/',
         linkTarget: '_self',
       },
       {
         text: 'Rückgabe Elektro-Altgerät',
-        link: '/de/i/footermenue/wir-helfen-ihnen/faq/#Elektro-Altgeraete',
+        link: 'https://www.baywa.de/de/i/footermenue/wir-helfen-ihnen/faq/#Elektro-Altgeraete',
         linkTarget: '_self',
       },
       {
         text: 'Rücksendung',
-        link: '/de/i/footermenue/wir-helfen-ihnen/faq/#ruecksendung',
+        link: 'https://www.baywa.de/de/i/footermenue/wir-helfen-ihnen/faq/#ruecksendung',
         linkTarget: '_self',
       },
       {
         text: 'Versandkosten & Lieferung',
-        link: '/de/i/footermenue/wir-helfen-ihnen/faq/#Lieferung',
+        link: 'https://www.baywa.de/de/i/footermenue/wir-helfen-ihnen/faq/#Lieferung',
         linkTarget: '_self',
       },
       {
