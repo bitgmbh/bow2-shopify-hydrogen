@@ -20,6 +20,8 @@ import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
 import tailwindStyles from './styles/tailwind.css?url';
 import {PortalContextProvider} from '@bitgmbh/ebiz-react-components';
 import {CartProvider} from '@shopify/hydrogen-react';
+import {getWishlist} from '~/utils/wishlist';
+import {WishlistProvider} from '~/components/wishlist/wishlist-provider';
 
 export type RootLoader = typeof loader;
 
@@ -101,9 +103,9 @@ export async function loader(args: LoaderFunctionArgs) {
  * Load data necessary for rendering content above the fold. This is the critical data
  * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
  */
-async function loadCriticalData({context}: LoaderFunctionArgs) {
+async function loadCriticalData({request, context}: LoaderFunctionArgs) {
   const {storefront} = context;
-
+  const wishlist = await getWishlist(request);
   const [header] = await Promise.all([
     storefront.query(HEADER_QUERY, {
       cache: storefront.CacheLong(),
@@ -114,7 +116,7 @@ async function loadCriticalData({context}: LoaderFunctionArgs) {
     // Add other queries here, so that they are loaded in parallel
   ]);
 
-  return {header};
+  return {header, wishlist};
 }
 
 /**
@@ -168,14 +170,16 @@ export function Layout({children}: {children?: React.ReactNode}) {
             shop={data.shop}
             consent={data.consent}
           >
-            <CartProvider>
-              <PortalContextProvider
-                iconPath="/assets/icons.symbols.svg"
-                pageContext={{}}
-              >
-                <PageLayout {...data}>{children}</PageLayout>
-              </PortalContextProvider>
-            </CartProvider>
+            <WishlistProvider initialWishlist={data.wishlist}>
+              <CartProvider>
+                <PortalContextProvider
+                  iconPath="/assets/icons.symbols.svg"
+                  pageContext={{}}
+                >
+                  <PageLayout {...data}>{children}</PageLayout>
+                </PortalContextProvider>
+              </CartProvider>
+            </WishlistProvider>
           </Analytics.Provider>
         ) : (
           children

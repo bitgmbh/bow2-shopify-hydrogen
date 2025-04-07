@@ -3,6 +3,7 @@ import React from 'react';
 import {useProductDetailContext} from '~/components/product-details/product-detail-context';
 import {CartForm} from '@shopify/hydrogen';
 import {FetcherWithComponents} from '@remix-run/react';
+import {useWishlistContext} from '~/components/wishlist/wishlist-provider';
 
 interface AddToCartProps {
   productId: string;
@@ -11,7 +12,10 @@ interface AddToCartProps {
 
 export default function AddToCart({productId, unit}: AddToCartProps) {
   const {variant} = useProductDetailContext();
-  const handleAddToWishlist = async () => {};
+  const {toggleWishlistItem, isInWishlist} = useWishlistContext();
+  const handleAddToWishlist = async () => {
+    await toggleWishlistItem(variant.id);
+  };
 
   return (
     <div className="flex gap-b self-end [&>form]:flex-1">
