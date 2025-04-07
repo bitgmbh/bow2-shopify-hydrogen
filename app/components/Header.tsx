@@ -111,7 +111,7 @@ export function HeaderMenu({
           </NavLink>
         )}
 
-        <div className="flex items-center gap-b">
+        <div className="flex items-center justify-between flex-1">
           {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
             if (!item.url) return null;
 
@@ -124,12 +124,11 @@ export function HeaderMenu({
                 : item.url;
             return (
               <NavLink
-                className="header-menu-item"
+                className="font-semibold"
                 end
                 key={item.id}
                 onClick={close}
                 prefetch="intent"
-                style={activeLinkStyle}
                 to={url}
               >
                 {item.title}

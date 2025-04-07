@@ -149,7 +149,6 @@ export function Layout({children}: {children?: React.ReactNode}) {
   const nonce = useNonce();
   const data = useRouteLoaderData<RootLoader>('root');
 
-  console.log('PD', import.meta.env.VITE_PUBLIC_STORE_DOMAIN);
   return (
     <html lang="en">
       <head className="rounded-full">

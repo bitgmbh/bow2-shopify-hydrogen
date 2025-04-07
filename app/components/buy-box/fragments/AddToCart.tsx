@@ -11,7 +11,6 @@ interface AddToCartProps {
 
 export default function AddToCart({productId, unit}: AddToCartProps) {
   const {variant} = useProductDetailContext();
-
   const handleAddToWishlist = async () => {};
 
   return (
@@ -19,14 +18,12 @@ export default function AddToCart({productId, unit}: AddToCartProps) {
       <CartForm
         route="/cart"
         inputs={{
-          lines: variant
-            ? [
-                {
-                  merchandiseId: variant.id,
-                  quantity: 1,
-                },
-              ]
-            : [],
+          lines: [
+            {
+              merchandiseId: variant.id,
+              quantity: 1,
+            },
+          ],
         }}
         action={CartForm.ACTIONS.LinesAdd}
       >
