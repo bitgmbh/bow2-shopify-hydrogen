@@ -169,14 +169,14 @@ export function Layout({children}: {children?: React.ReactNode}) {
             shop={data.shop}
             consent={data.consent}
           >
-            <PortalContextProvider
-              iconPath="/assets/icons.symbols.svg"
-              pageContext={{}}
-            >
-              <CartProvider>
+            <CartProvider>
+              <PortalContextProvider
+                iconPath="/assets/icons.symbols.svg"
+                pageContext={{}}
+              >
                 <PageLayout {...data}>{children}</PageLayout>
-              </CartProvider>
-            </PortalContextProvider>
+              </PortalContextProvider>
+            </CartProvider>
           </Analytics.Provider>
         ) : (
           children

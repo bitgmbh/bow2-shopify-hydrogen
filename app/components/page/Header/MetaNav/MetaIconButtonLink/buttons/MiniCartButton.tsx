@@ -13,7 +13,6 @@ type MiniCartButtonProps = {} & Pick<
 const MiniCartButton: React.FC<MiniCartButtonProps> = ({show = 'sm', hide}) => {
   const cart = useCart();
 
-  console.log('CART', cart);
   return (
     <MetaIconButtonLink
       icon="icon-ebusiness-basket"
