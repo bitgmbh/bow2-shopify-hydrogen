@@ -25,7 +25,9 @@ export function ProductForm({
 
         return (
           <div className="product-options" key={option.name}>
-            <span className="text-16 font-semibold">Varianten</span>
+            <span className="text-16 font-semibold">
+              {option.name === 'sku' ? 'Varianten' : option.name}
+            </span>
             <div className="grid grid-cols-1 auto-rows-fr gap-y-a">
               {option.optionValues.map((value) => {
                 const {
