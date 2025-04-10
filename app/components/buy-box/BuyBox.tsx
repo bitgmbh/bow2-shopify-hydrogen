@@ -12,7 +12,7 @@ interface BuyBoxProps {
 }
 
 export const BuyBox: FC<BuyBoxProps> = ({className}) => {
-  const {product, variant, variantOptions} = useProductDetailContext();
+  const {product, variant, productOptions} = useProductDetailContext();
 
   const {price} = variant;
   return (
@@ -23,7 +23,7 @@ export const BuyBox: FC<BuyBoxProps> = ({className}) => {
       )}
     >
       <BuyBoxHeader productVariant={variant} />
-      <ProductForm productOptions={variantOptions} selectedVariant={variant} />
+      <ProductForm productOptions={productOptions} selectedVariant={variant} />
       <BuyBoxProductInfo description={product.descriptionHtml} />
 
       <ProductPrice price={price!} />

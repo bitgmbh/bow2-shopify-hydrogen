@@ -1,22 +1,20 @@
 import {createContext, useContext} from 'react';
-import {
-  Product,
-  ProductVariant,
-} from '@shopify/hydrogen-react/storefront-api-types';
 import {MappedProductOptions} from '@shopify/hydrogen';
+import type {Bow2ProductVariant} from '~/components/ProductTypes';
+import type {Product} from '@shopify/hydrogen-react/storefront-api-types';
 
 export interface ProductDetailPageContextType {
+  variant: Bow2ProductVariant;
   product: Product;
-  variant: ProductVariant;
-  variantOptions: MappedProductOptions[];
+  productOptions: MappedProductOptions[];
   csrf: string;
 }
 
 export const ProductDetailPageContext =
   createContext<ProductDetailPageContextType>({
-    variant: {} as ProductVariant,
+    variant: {} as Bow2ProductVariant,
     product: {} as Product,
-    variantOptions: [],
+    productOptions: [],
     csrf: '',
   });
 

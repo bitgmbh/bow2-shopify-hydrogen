@@ -8,22 +8,29 @@ import {FooterTrustedShop} from '~/components/page/Footer/fragments/FooterTruste
 import {FooterSeoTeaser} from '~/components/page/Footer/fragments/FooterSeoTeaser';
 import {FooterSocialMedia} from '~/components/page/Footer/fragments/FooterSocialMedia';
 import ContainerFluid from '~/components/ContainerFluid';
+import {PageVariant} from '~/components/PageLayout';
 
-interface PortalFooterProps {}
+interface PortalFooterProps {
+  pageVariant: PageVariant;
+}
 
-const PortalFooter: React.FC<PortalFooterProps> = ({}) => {
+const PortalFooter: React.FC<PortalFooterProps> = ({pageVariant}) => {
   return (
     <footer>
-      <FooterSideBySide
-        left={<FooterTrustedShop />}
-        right={<FooterPaymentMethods />}
-      />
-      <ContainerFluid className="md:hidden">
-        <FooterSocialMedia className="basis-4/12 py-c" />
-      </ContainerFluid>
-      <FooterTrustedShopReviews />
-      <FooterSeoTeaser />
-      <FooterMenus />
+      {pageVariant === PageVariant.Standard && (
+        <>
+          <FooterSideBySide
+            left={<FooterTrustedShop />}
+            right={<FooterPaymentMethods />}
+          />
+          <ContainerFluid className="md:hidden !mb-0">
+            <FooterSocialMedia className="basis-4/12 py-c" />
+          </ContainerFluid>
+          <FooterTrustedShopReviews />
+          <FooterSeoTeaser />
+          <FooterMenus />
+        </>
+      )}
       <FooterLinks />
     </footer>
   );

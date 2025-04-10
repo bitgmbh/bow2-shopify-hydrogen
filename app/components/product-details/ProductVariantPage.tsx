@@ -3,12 +3,12 @@ import {Accordion} from '@bitgmbh/ebiz-react-components';
 import {ProductShippingDelivery} from '~/components/product-details/ProductShippingDelivery';
 import {DetailsAccordionItem} from '~/components/product-details/fragments/DetailsAccordionItem';
 import {useProductDetailContext} from '~/components/product-details/product-detail-context';
-import {ProductMediaGallery} from '../media/gallery/ProductMediaGallery';
 import clsx from 'clsx';
 import {BuyBox} from '~/components/buy-box/BuyBox';
+import {ProductMediaGallery} from '~/components/product-details/media-gallery/ProductMediaGallery';
 
 export default function ProductVariantPage() {
-  const {product, variant} = useProductDetailContext();
+  const {variant} = useProductDetailContext();
 
   return (
     <>
@@ -22,9 +22,7 @@ export default function ProductVariantPage() {
         <ProductMediaGallery className="col-span-7 [grid-area:gallery]" />
         <Accordion className="[grid-area:main]">
           <DetailsAccordionItem title="Produktdetails" initiallyOpen={true}>
-            <ProductDescription
-              description={variant?.['descriptionHtml']?.value}
-            />
+            <ProductDescription description={variant.descriptionHtml?.value} />
           </DetailsAccordionItem>
           <DetailsAccordionItem title="Datenblätter"></DetailsAccordionItem>
           <DetailsAccordionItem title="Produktsicherheit"></DetailsAccordionItem>

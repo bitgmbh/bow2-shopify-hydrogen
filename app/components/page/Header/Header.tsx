@@ -12,8 +12,9 @@ import {Button} from '@bitgmbh/ebiz-react-components';
 import {MetaIconButtonLink} from '~/components/page/Header/MetaNav/MetaIconButtonLink/MetaIconButtonLink';
 import {MyAccountUrl} from '~/components/page/Header/MetaNav/MetaIconButtonLink/buttons';
 import {PortalSwitcher} from '~/components/page/Header/PortalSwitcher';
+import {PortalMainNav} from '~/components/page/Header/PortalMainNav';
 
-interface HeaderProps {
+export interface HeaderProps {
   header: HeaderQuery;
   cart: Promise<CartApiQueryFragment | null>;
   isLoggedIn: Promise<boolean>;
@@ -30,7 +31,7 @@ export function Header({
 }: HeaderProps) {
   const {shop, menu} = header;
   return (
-    <header className="flex flex-col  w-full mb-d">
+    <header className="flex flex-col  w-full">
       <PortalSwitcher />
       <ContainerFluid className="flex gap-c !mb-0 py-c">
         <NavLink
@@ -72,12 +73,7 @@ export function Header({
         </Form>
         <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
       </ContainerFluid>
-      <HeaderMenu
-        menu={menu}
-        viewport="desktop"
-        primaryDomainUrl={header.shop.primaryDomain.url}
-        publicStoreDomain={publicStoreDomain}
-      />
+      <PortalMainNav menu={menu} />
     </header>
   );
 }

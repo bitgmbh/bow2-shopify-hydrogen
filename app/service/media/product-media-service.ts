@@ -6,7 +6,13 @@ export type Media = {
 };
 export const MISSING_ARTICLE_IMG_URL =
   'https://res.cloudinary.com/baywa-ag-p/image/upload/d_missing_article.jpg/q_auto:good/c_scale,w_173,c_pad,b_white,g_center,f_auto/missing_article.jpg';
-export const transformImageUrl = (imgUrl: string, width: number) => {
+export const transformImageUrl = (
+  imgUrl: string | undefined,
+  width: number,
+) => {
+  if (!imgUrl) {
+    return '';
+  }
   const url = new URL(imgUrl);
   url.searchParams.set('width', width.toString());
   return url.toString();

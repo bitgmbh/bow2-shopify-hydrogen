@@ -1,7 +1,7 @@
 import React, {memo} from 'react';
 import clsx from 'clsx';
-import {ThumbnailImage} from '~/components/media/gallery/fragments/thumbnail/ThumbnailImage';
 import type {MediaImage} from '@shopify/hydrogen/storefront-api-types';
+import {ThumbnailImage} from '~/components/product-details/media-gallery/fragments/thumbnail/ThumbnailImage';
 
 interface ThumbnailMediumProps {
   medium: MediaImage;

@@ -1,9 +1,9 @@
-import {ProductImage} from '~/components/media/gallery/fragments/gallery/ProductImage';
 import {createRef, FC, RefObject, useEffect, useMemo} from 'react';
-import {useProductMediaGalleryStore} from '~/components/media/gallery/product-media-gallery-store';
-import {ProductGalleryMedium} from '~/components/media/gallery/fragments/gallery/ProductGalleryMedium';
 import {isXs} from '@bitgmbh/ebiz-utils';
 import {useShallow} from 'zustand/react/shallow';
+import {useProductMediaGalleryStore} from '~/components/product-details/media-gallery/product-media-gallery-store';
+import {ProductImage} from '~/components/product-details/media-gallery/fragments/gallery/ProductImage';
+import {ProductGalleryMedium} from '~/components/product-details/media-gallery/fragments/gallery/ProductGalleryMedium';
 
 export const MISSING_ARTICLE_IMG_URL =
   'https://res.cloudinary.com/baywa-ag-p/image/upload/d_missing_article.jpg/q_auto:good/c_scale,w_173,c_pad,b_white,g_center,f_auto/missing_article.jpg';

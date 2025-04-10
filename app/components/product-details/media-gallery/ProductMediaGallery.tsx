@@ -1,9 +1,9 @@
 import {FC, useRef} from 'react';
-import {ProductMediaGalleryItems} from '~/components/media/gallery/fragments/gallery/ProductMediaGalleryItems';
 import {useProductDetailContext} from '~/components/product-details/product-detail-context';
 import clsx from 'clsx';
-import {ProductMediaGalleryThumbnails} from '~/components/media/gallery/ProductMediaGalleryThumbnails';
 import type {MediaImage} from '@shopify/hydrogen/storefront-api-types';
+import {ProductMediaGalleryThumbnails} from '~/components/product-details/media-gallery/ProductMediaGalleryThumbnails';
+import {ProductMediaGalleryItems} from '~/components/product-details/media-gallery/fragments/gallery/ProductMediaGalleryItems';
 
 interface ProductMediaGalleryProps {
   className?: string;

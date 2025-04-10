@@ -1,5 +1,17 @@
 import {Analytics, getShopAnalytics, useNonce} from '@shopify/hydrogen';
 import {type LoaderFunctionArgs} from '@shopify/remix-oxygen';
+import favicon from '~/assets/favicon.svg';
+import resetStyles from '~/styles/reset.css?url';
+import appStyles from '~/styles/app.css?url';
+import fontFaces from './styles/font-faces.css?url';
+import {PageLayout, PageVariant} from '~/components/PageLayout';
+import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
+import tailwindStyles from './styles/tailwind.css?url';
+import {PortalContextProvider} from '@bitgmbh/ebiz-react-components';
+import {CartProvider} from '@shopify/hydrogen-react';
+import {getWishlist} from '~/utils/wishlist';
+import {WishlistProvider} from '~/components/wishlist/wishlist-provider';
+import {ReactNode} from 'react';
 import {
   isRouteErrorResponse,
   Links,
@@ -11,17 +23,6 @@ import {
   useRouteError,
   useRouteLoaderData,
 } from '@remix-run/react';
-import favicon from '~/assets/favicon.svg';
-import resetStyles from '~/styles/reset.css?url';
-import appStyles from '~/styles/app.css?url';
-import fontFaces from './styles/font-faces.css?url';
-import {PageLayout} from '~/components/PageLayout';
-import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
-import tailwindStyles from './styles/tailwind.css?url';
-import {PortalContextProvider} from '@bitgmbh/ebiz-react-components';
-import {CartProvider} from '@shopify/hydrogen-react';
-import {getWishlist} from '~/utils/wishlist';
-import {WishlistProvider} from '~/components/wishlist/wishlist-provider';
 
 export type RootLoader = typeof loader;
 
@@ -147,10 +148,9 @@ function loadDeferredData({context}: LoaderFunctionArgs) {
   };
 }
 
-export function Layout({children}: {children?: React.ReactNode}) {
+export function Layout({children}: {children?: ReactNode}) {
   const nonce = useNonce();
   const data = useRouteLoaderData<RootLoader>('root');
-
   return (
     <html lang="en">
       <head className="rounded-full">
@@ -176,7 +176,9 @@ export function Layout({children}: {children?: React.ReactNode}) {
                   iconPath="/assets/icons.symbols.svg"
                   pageContext={{}}
                 >
-                  <PageLayout {...data}>{children}</PageLayout>
+                  <PageLayout variant={PageVariant.Standard} {...data}>
+                    {children}
+                  </PageLayout>
                 </PortalContextProvider>
               </CartProvider>
             </WishlistProvider>

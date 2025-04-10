@@ -98,7 +98,7 @@ export default function Product() {
       value={{
         product,
         variant: product.selectedOrFirstAvailableVariant,
-        variantOptions: productOptions,
+        productOptions,
       }}
     >
       <ProductVariantPage />

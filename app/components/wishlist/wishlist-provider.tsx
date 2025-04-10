@@ -1,4 +1,9 @@
-import {createContext, useContext, useState} from 'react';
+import React, {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useState,
+} from 'react';
 
 interface WishlistContextType {
   wishlist: string[];
@@ -17,7 +22,7 @@ export const useWishlistContext = () => {
   return context;
 };
 
-interface WishlistProviderProps extends React.PropsWithChildren {
+interface WishlistProviderProps extends PropsWithChildren {
   initialWishlist: string[];
 }
 
@@ -31,7 +36,7 @@ export const WishlistProvider = ({
     setWishlist((prev) =>
       prev.includes(sku)
         ? prev.filter((id) => id !== sku)
-        : [...prev!, ...[sku]],
+        : [...prev, ...[sku]],
     );
 
     const postParams = new FormData();
@@ -45,7 +50,7 @@ export const WishlistProvider = ({
   return (
     <WishlistContext.Provider
       value={{
-        wishlist: wishlist ?? [],
+        wishlist,
         toggleWishlistItem,
       }}
     >

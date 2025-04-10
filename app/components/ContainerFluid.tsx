@@ -1,11 +1,23 @@
-import React from 'react'
-import clsx from 'clsx'
+import React from 'react';
+import {clsx} from 'clsx';
 
 interface ContainerFluidProps {
-  className?: string
-  children: React.ReactNode
+  className?: string;
+  children: React.ReactNode;
+  main?: boolean;
 }
 
-export default function ContainerFluid({ children, className }: ContainerFluidProps) {
-  return <main className={clsx('w-content mx-auto mb-j relative', className)}>{children}</main>
+export default function ContainerFluid({
+  children,
+  className,
+  main,
+}: ContainerFluidProps) {
+  const MainOrDiv = main ? 'main' : 'div';
+  return (
+    <MainOrDiv
+      className={clsx('w-content mx-auto relative', main && 'mb-j', className)}
+    >
+      {children}
+    </MainOrDiv>
+  );
 }

@@ -1,6 +1,6 @@
 import React, {forwardRef, memo} from 'react';
-import {ProductImage} from '~/components/media/gallery/fragments/gallery/ProductImage';
 import {MediaImage} from '@shopify/hydrogen-react/storefront-api-types';
+import {ProductImage} from '~/components/product-details/media-gallery/fragments/gallery/ProductImage';
 
 interface ProductGalleryMediumProps {
   medium: MediaImage;

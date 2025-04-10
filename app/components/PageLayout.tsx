@@ -1,4 +1,4 @@
-import {Await, Link} from '@remix-run/react';
+import {Await, Link, useMatches} from '@remix-run/react';
 import {Suspense, useId} from 'react';
 import type {
   CartApiQueryFragment,
@@ -6,7 +6,6 @@ import type {
   HeaderQuery,
 } from 'storefrontapi.generated';
 import {Aside} from '~/components/Aside';
-import {Header, HeaderMenu} from '~/components/Header';
 import {CartMain} from '~/components/CartMain';
 import {
   SEARCH_ENDPOINT,
@@ -15,6 +14,13 @@ import {
 import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
 import ContainerFluid from '~/components/ContainerFluid';
 import {PortalFooter} from '~/components/page/Footer/PortalFooter';
+import {Header, HeaderMenu} from '~/components/page/Header/Header';
+
+export enum PageVariant {
+  Standard,
+  Light,
+  Minimal,
+}
 
 interface PageLayoutProps {
   cart: Promise<CartApiQueryFragment | null>;
@@ -23,6 +29,7 @@ interface PageLayoutProps {
   isLoggedIn: Promise<boolean>;
   publicStoreDomain: string;
   children?: React.ReactNode;
+  variant: PageVariant;
 }
 
 export function PageLayout({
@@ -32,7 +39,12 @@ export function PageLayout({
   header,
   isLoggedIn,
   publicStoreDomain,
+  variant,
 }: PageLayoutProps) {
+  const matches = useMatches();
+  const currentRouteHandle = matches.at(-1)?.handle;
+  const pageVariant = currentRouteHandle?.pageVariant ?? PageVariant.Standard;
+
   return (
     <Aside.Provider>
       <CartAside cart={cart} />
@@ -46,8 +58,10 @@ export function PageLayout({
           publicStoreDomain={publicStoreDomain}
         />
       )}
-      <ContainerFluid>{children}</ContainerFluid>
-      <PortalFooter />
+      <ContainerFluid className="flex-1" main>
+        {children}
+      </ContainerFluid>
+      <PortalFooter pageVariant={pageVariant} />
     </Aside.Provider>
   );
 }

@@ -2,18 +2,23 @@ import {type MetaFunction, useLoaderData} from '@remix-run/react';
 import type {CartQueryDataReturn} from '@shopify/hydrogen';
 import {CartForm} from '@shopify/hydrogen';
 import {
-  data,
-  type LoaderFunctionArgs,
   type ActionFunctionArgs,
+  data,
   type HeadersFunction,
+  type LoaderFunctionArgs,
 } from '@shopify/remix-oxygen';
-import {CartMain} from '~/components/CartMain';
+import {CartPage} from '~/components/cart/CartPage';
+import {PageVariant} from '~/components/PageLayout';
 
 export const meta: MetaFunction = () => {
   return [{title: `Hydrogen | Cart`}];
 };
 
 export const headers: HeadersFunction = ({actionHeaders}) => actionHeaders;
+
+export const handle = {
+  pageVariant: PageVariant.Minimal,
+};
 
 export async function action({request, context}: ActionFunctionArgs) {
   const {cart} = context;
@@ -22,6 +27,7 @@ export async function action({request, context}: ActionFunctionArgs) {
 
   const {action, inputs} = CartForm.getFormInput(formData);
 
+  console.log(action, inputs);
   if (!action) {
     throw new Error('No action provided');
   }
@@ -108,10 +114,5 @@ export async function loader({context}: LoaderFunctionArgs) {
 export default function Cart() {
   const cart = useLoaderData<typeof loader>();
 
-  return (
-    <div className="cart">
-      <h1>Cart</h1>
-      <CartMain layout="page" cart={cart} />
-    </div>
-  );
+  return <CartPage cart={cart} />;
 }

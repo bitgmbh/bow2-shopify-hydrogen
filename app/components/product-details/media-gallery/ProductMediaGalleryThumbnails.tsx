@@ -1,9 +1,9 @@
 import React, {useCallback, useRef, useState} from 'react';
 import {throttle} from 'lodash-es';
-import {useProductMediaGalleryStore} from '~/components/media/gallery/product-media-gallery-store';
 import {BaywaIcon} from '@bitgmbh/ebiz-react-components';
 import {useShallow} from 'zustand/react/shallow';
-import {ThumbnailItem} from '~/components/media/gallery/fragments/thumbnail/ThumbnailItem';
+import {useProductMediaGalleryStore} from './product-media-gallery-store';
+import {ThumbnailItem} from '~/components/product-details/media-gallery/fragments/thumbnail/ThumbnailItem';
 
 interface ThumbnailNavButtonProps
   extends React.ComponentPropsWithRef<'button'> {
