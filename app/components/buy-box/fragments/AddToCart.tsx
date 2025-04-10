@@ -12,7 +12,7 @@ interface AddToCartProps {
 
 export default function AddToCart({productId, unit}: AddToCartProps) {
   const {variant} = useProductDetailContext();
-  const {toggleWishlistItem, isInWishlist} = useWishlistContext();
+  const {toggleWishlistItem} = useWishlistContext();
   const handleAddToWishlist = async () => {
     await toggleWishlistItem(variant.id);
   };

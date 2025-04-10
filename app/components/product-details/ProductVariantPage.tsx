@@ -1,9 +1,9 @@
 import ProductDescription from './ProductDescription';
-import {Accordion} from '@bitgmbh/ebiz-react-components';
+import {Accordion, BreadCrumbsNav} from '@bitgmbh/ebiz-react-components';
 import {ProductShippingDelivery} from '~/components/product-details/ProductShippingDelivery';
 import {DetailsAccordionItem} from '~/components/product-details/fragments/DetailsAccordionItem';
 import {useProductDetailContext} from '~/components/product-details/product-detail-context';
-import clsx from 'clsx';
+import {clsx} from 'clsx';
 import {BuyBox} from '~/components/buy-box/BuyBox';
 import {ProductMediaGallery} from '~/components/product-details/media-gallery/ProductMediaGallery';
 
@@ -12,6 +12,13 @@ export default function ProductVariantPage() {
 
   return (
     <>
+      <BreadCrumbsNav
+        items={[
+          {href: '/', text: 'Startseite'},
+          {href: '#', text: variant.title},
+        ]}
+        as={'a'}
+      />
       <section
         className={clsx(
           'grid auto-rows-max',

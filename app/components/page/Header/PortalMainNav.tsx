@@ -39,7 +39,7 @@ export function PortalMainNav({className, menu}: PortalMainNavProps) {
               onFocus={() => setActiveItem(item.id)}
             >
               <LinkOrAnchor
-                to={item.url ?? '#'}
+                to={item.url ? new URL(item.url).pathname : '#'}
                 className={clsx(
                   'flex cursor-pointer gap-a no-underline hover:text-primary-nature-green-600',
                 )}

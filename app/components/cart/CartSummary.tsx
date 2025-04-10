@@ -58,7 +58,7 @@ export const CartSummary: FC<CartSummaryProps> = ({cart}) => {
         type="submit"
         variant="primary"
         text="Zur Kasse"
-        clickHandler={() => navigate(cart.checkoutUrl)}
+        clickHandler={() => window.location.assign(cart.checkoutUrl)}
       />
     </div>
   );

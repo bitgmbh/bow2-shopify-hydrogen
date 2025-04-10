@@ -25,10 +25,10 @@ export function ProductForm({
 
         return (
           <div className="product-options" key={option.name}>
-            <span className="text-16 font-semibold">
+            <div className="text-16 font-semibold mb-aa">
               {option.name === 'sku' ? 'Varianten' : option.name}
-            </span>
-            <div className="grid grid-cols-1 auto-rows-fr gap-y-a">
+            </div>
+            <div className="flex flex-wrap gap-a">
               {option.optionValues.map((value) => {
                 const {
                   name,
@@ -74,7 +74,7 @@ export function ProductForm({
                     <button
                       type="button"
                       className={clsx(
-                        `grid gap-b h-full items-center no-underline text-14 p-a border rounded-a border-secondary-stone-grey-200 hover:bg-secondary-stone-grey-200 `,
+                        `grid gap-b h-full items-center no-underline text-14 p-a border rounded-a border-secondary-stone-grey-200 hover:bg-secondary-stone-grey-200 w-max whitespace-nowrap min-w-[50px]`,
                         selected && 'bg-secondary-stone-grey-200',
                       )}
                       key={option.name + name}

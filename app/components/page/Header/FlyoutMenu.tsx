@@ -107,7 +107,7 @@ function FlyoutMenu({className, items, menuClickHandler}: FlyoutMenuProps) {
           >
             <LinkOrAnchor
               className="flex basis-full items-center justify-between font-normal no-underline hover:text-current"
-              to={item.url ?? '#'}
+              to={item.url ? new URL(item.url).pathname : '#'}
               title={item.title}
               target="_self"
             >
